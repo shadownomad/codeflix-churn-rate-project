@@ -311,8 +311,8 @@ WITH months AS (
     '2017-02-28' AS last_day
   UNION
     SELECT
-    '2018-03-01' AS first_day,
-    '2018-03-31' AS last_day 
+    '2017-03-01' AS first_day,
+    '2017-03-31' AS last_day 
   ),
   cross_join AS(
     SELECT * 
@@ -379,8 +379,8 @@ WITH months AS (
     '2017-02-28' AS last_day
   UNION
     SELECT
-    '2018-03-01' AS first_day,
-    '2018-03-31' AS last_day 
+    '2017-03-01' AS first_day,
+    '2017-03-31' AS last_day 
   ),
   cross_join AS(
     SELECT * 
