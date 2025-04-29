@@ -10,7 +10,9 @@ SELECT DISTINCT segment FROM subscriptions; --Confirms I didnt miss any niche ex
  --2. Determine the range of months of data provided. Which months will you be able to calculate churn for?
 
 SELECT MIN(subscription_start) AS 'earliest_start',
-  MAX(subscription_start) AS 'latest_start'
+  MAX(subscription_start) AS 'latest_start',
+  MIN(subscription_end) AS 'earliest_end',
+  MAX(subscription_end) AS 'latest_end'
 FROM subscriptions;
 
 -- Calculate churn rate for each segment
