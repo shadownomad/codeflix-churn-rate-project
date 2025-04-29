@@ -1,6 +1,5 @@
  -- Get familiar with the data 
 
-
  --1. Take a look at the first 100 rows of data in the subscriptions table. How many different segments do you see?
 
 SELECT * FROM subscriptions LIMIT 100; 
@@ -92,7 +91,7 @@ WITH months AS (
     SELECT * FROM status  ORDER BY month LIMIT 10;    
 
 
- --6. Add an is_canceled_87 and an is_canceled_30 column to the status temporary table. This should be 1 if the subscription is canceled during the month and 0 otherwise. */ /*
+ --6. Add an is_canceled_87 and an is_canceled_30 column to the status temporary table. This should be 1 if the subscription is canceled during the month and 0 otherwise. */ 
 WITH months AS (
   SELECT 
     DISTINCT
@@ -320,9 +319,11 @@ WITH months AS (
     SUM(is_active) AS sum_active,
     SUM(is_canceled) AS sum_canceled
       FROM status 
-  GROUP BY month, segment 
+  GROUP BY month, segment
   ORDER BY segment
    ) 
    SELECT month, segment, 
  1.0 *( sum_canceled)/sum_active AS churn
 FROM status_aggregate;
+  
+    
