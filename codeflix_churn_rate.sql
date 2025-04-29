@@ -19,34 +19,23 @@ FROM subscriptions;
 
  --3. You’ll be calculating the churn rate for both segments (87 and 30) over the first 3 months of 2017 (you can’t calculate it for December, since there are no subscription_end values yet). To get started, create a temporary table of months.
 WITH months AS (
-  SELECT
-    '2017-01-01' AS first_day,
-    '2017-01-31' AS last_day
-  UNION
-    SELECT
-    '2017-02-01' AS first_day,
-    '2017-02-28' AS last_day
-  UNION
-    SELECT
-    '2017-03-01' AS first_day,
-    '2017-03-31' AS last_day 
+  SELECT 
+    DISTINCT
+    date(strftime('%Y-%m', subscription_end) || '-01') AS first_day,
+    date(strftime('%Y-%m', subscription_end) || '-01', 'start of month', '+1 month', '-1 day') AS last_day
+  FROM subscriptions
+  WHERE subscription_end IS NOT NULL
 )
-
-SELECT * FROM months;
+SELECT * FROM months ORDER BY first_day;
 
  --4. Create a temporary table, cross_join, from subscriptions and your months. Be sure to SELECT every column.
 WITH months AS (
-  SELECT
-    '2017-01-01' AS first_day,
-    '2017-01-31' AS last_day
-  UNION
-    SELECT
-    '2017-02-01' AS first_day,
-    '2017-02-28' AS last_day
-  UNION
-    SELECT
-    '2018-03-01' AS first_day,
-    '2018-03-31' AS last_day 
+  SELECT 
+    DISTINCT
+    date(strftime('%Y-%m', subscription_end) || '-01') AS first_day,
+    date(strftime('%Y-%m', subscription_end) || '-01', 'start of month', '+1 month', '-1 day') AS last_day
+  FROM subscriptions
+  WHERE subscription_end IS NOT NULL
   ),
   cross_join AS(
     SELECT * 
@@ -63,17 +52,12 @@ SELECT * FROM cross_join LIMIT 10;
      * is_active_30 created using a CASE WHEN to find any users from segment 30 who existed prior to the beginning of the month. This is 1 if true and 0 otherwise.*/
 
 WITH months AS (
-  SELECT
-    '2017-01-01' AS first_day,
-    '2017-01-31' AS last_day
-  UNION
-    SELECT
-    '2017-02-01' AS first_day,
-    '2017-02-28' AS last_day
-  UNION
-    SELECT
-    '2017-03-01' AS first_day,
-    '2017-03-31' AS last_day 
+  SELECT 
+    DISTINCT
+    date(strftime('%Y-%m', subscription_end) || '-01') AS first_day,
+    date(strftime('%Y-%m', subscription_end) || '-01', 'start of month', '+1 month', '-1 day') AS last_day
+  FROM subscriptions
+  WHERE subscription_end IS NOT NULL
   ),
   cross_join AS(
     SELECT * 
@@ -110,17 +94,12 @@ WITH months AS (
 
  --6. Add an is_canceled_87 and an is_canceled_30 column to the status temporary table. This should be 1 if the subscription is canceled during the month and 0 otherwise. */ /*
 WITH months AS (
-  SELECT
-    '2017-01-01' AS first_day,
-    '2017-01-31' AS last_day
-  UNION
-    SELECT
-    '2017-02-01' AS first_day,
-    '2017-02-28' AS last_day
-  UNION
-    SELECT
-    '2017-03-01' AS first_day,
-    '2017-03-31' AS last_day 
+  SELECT 
+    DISTINCT
+    date(strftime('%Y-%m', subscription_end) || '-01') AS first_day,
+    date(strftime('%Y-%m', subscription_end) || '-01', 'start of month', '+1 month', '-1 day') AS last_day
+  FROM subscriptions
+  WHERE subscription_end IS NOT NULL
   ),
   cross_join AS(
     SELECT * 
@@ -174,17 +153,12 @@ WITH months AS (
   * sum_canceled_30 */
 
 WITH months AS (
-  SELECT
-    '2017-01-01' AS first_day,
-    '2017-01-31' AS last_day
-  UNION
-    SELECT
-    '2017-02-01' AS first_day,
-    '2017-02-28' AS last_day
-  UNION
-    SELECT
-    '2017-03-01' AS first_day,
-    '2017-03-31' AS last_day 
+  SELECT 
+    DISTINCT
+    date(strftime('%Y-%m', subscription_end) || '-01') AS first_day,
+    date(strftime('%Y-%m', subscription_end) || '-01', 'start of month', '+1 month', '-1 day') AS last_day
+  FROM subscriptions
+  WHERE subscription_end IS NOT NULL
   ),
   cross_join AS(
     SELECT * 
@@ -242,17 +216,12 @@ WITH months AS (
 
 
 WITH months AS (
-  SELECT
-    '2017-01-01' AS first_day,
-    '2017-01-31' AS last_day
-  UNION
-    SELECT
-    '2017-02-01' AS first_day,
-    '2017-02-28' AS last_day
-  UNION
-    SELECT
-    '2017-03-01' AS first_day,
-    '2017-03-31' AS last_day 
+  SELECT 
+    DISTINCT
+    date(strftime('%Y-%m', subscription_end) || '-01') AS first_day,
+    date(strftime('%Y-%m', subscription_end) || '-01', 'start of month', '+1 month', '-1 day') AS last_day
+  FROM subscriptions
+  WHERE subscription_end IS NOT NULL
   ),
   cross_join AS(
     SELECT * 
@@ -313,17 +282,12 @@ WITH months AS (
 
 --9. How would you modify this code to support a large number of segments?
 WITH months AS (
-  SELECT
-    '2017-01-01' AS first_day,
-    '2017-01-31' AS last_day
-  UNION
-    SELECT
-    '2017-02-01' AS first_day,
-    '2017-02-28' AS last_day
-  UNION
-    SELECT
-    '2017-03-01' AS first_day,
-    '2017-03-31' AS last_day 
+  SELECT 
+    DISTINCT
+    date(strftime('%Y-%m', subscription_end) || '-01') AS first_day,
+    date(strftime('%Y-%m', subscription_end) || '-01', 'start of month', '+1 month', '-1 day') AS last_day
+  FROM subscriptions
+  WHERE subscription_end IS NOT NULL
   ),
   cross_join AS(
     SELECT * 
